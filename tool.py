@@ -118,7 +118,7 @@ def list_team_codes():
 # Boolean, List all valid team code/team name pairs.
 # listcodes=False
 # String, API key to use.
-# apikey='901186e638fd4baa999bb2c32f4ef7d5'
+# apikey='<YOUR-API-KEY>'
 def run(league='PL', time=6, standings=True, team=None, live=False, use12hour=False, players=False, output_format='stdout', output_file=None, upcoming=False, lookup=False, listcodes=False, apikey=None):
     """
     A CLI for live and past football scores from various football leagues.
