@@ -86,16 +86,15 @@ class Stdout(BaseWriter):
 
     def team_players(self, team):
         """Prints the team players in a pretty format"""
-        players = sorted(team, key=lambda d: d['shirtNumber'])
+        players = sorted(team, key=lambda d: d['id'])
         print(colors[self.colors.MISC] + colors['bold'] + "%-4s %-25s    %-20s    %-20s    %-15s" % ("N.",  "NAME", "POSITION", "NATIONALITY", "BIRTHDAY") + colors['end'])
-        fmt = (u"{shirtNumber:<4} {name:<28} {position:<23} {nationality:<23}"
-               u" {dateOfBirth:<18}")
         for player in players:
-            print(colors['bold'] + fmt.format(**player) + colors['end'])
+            print(colors['bold'] + f"{str(player['shirtNumber']):<4} {str(player['name']):<28} {str(player['position']):<23} {str(player['nationality']):<23} {str(player['dateOfBirth']):<18}" + colors['end'])
 
     def standings(self, league_table, league):
         """ Prints the league standings in a pretty way """
-        print("%-6s  %-30s    %-10s    %-10s    %-10s" % ("POS", "CLUB", "PLAYED", "GOAL DIFF", "POINTS"))
+        full_names = { 'WC': 'World Cup', 'EC': 'European Championship', 'CL': 'Champions League', 'PL': 'English Premier League', 'ELC': 'English Championship', 'FL1': 'French Ligue 1', 'BL': 'German Bundesliga', 'SA': 'Serie A', 'DED': 'Eredivisie', 'PPL': 'Primeira Liga', 'PD': 'Primera Division', 'BSA': 'Brazil Serie A' }
+        print(f"{full_names[league]:<41} {'P':<13} {'GD':<13} {'PTS'}")
         for team in league_table["standings"][0]["table"]:
             if team["goalDifference"] >= 0:
                 team["goalDifference"] = ' ' + str(team["goalDifference"])
@@ -107,8 +106,7 @@ class Stdout(BaseWriter):
             el_upper, el_lower = LEAGUE_PROPERTIES[league]['el']
             rl_upper, rl_lower = LEAGUE_PROPERTIES[league]['rl']
             team['teamName'] = team['team']['name']
-            team_str = (u"{position:<7} {teamName:<33} {playedGames:<12}"
-                        u" {goalDifference:<14} {points}").format(**team)
+            team_str = f'{team["position"]:<7} {team["teamName"]:<33} {team["playedGames"]:<12} {team["goalDifference"]:<14} {team["points"]}'
             if cl_upper <= team["position"] <= cl_lower:
                 print(colors[self.colors.CL_POSITION] + colors['bold'] + team_str + colors['end'])
             elif el_upper <= team["position"] <= el_lower:

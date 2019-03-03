@@ -59,8 +59,7 @@ class RequestHandler(object):
         time_frame = 'n' if show_upcoming else 'p'
         if team_id:
             try:
-                req = self._get('teams/{team_id}/matches?timeFrame={time_frame}{time}'.format(
-                            team_id=team_id, time_frame=time_frame, time=time))
+                req = self._get(f'teams/{team_id}/matches?timeFrame={time_frame}{time}')
                 team_scores = req.json()
                 if len(team_scores["matches"]) == 0:
                     print(colors['red'] + colors['bold'] + "No action during past week. Change the time parameter to get more fixtures." + colors['end'])
@@ -75,8 +74,7 @@ class RequestHandler(object):
         """Queries the API and gets the standings for a particular league"""
         league_id = self.league_ids[league]
         try:
-            req = self._get('competitions/{id}/standings'.format(
-                        id=league_id))
+            req = self._get(f'competitions/{league_id}/standings')
             self.writer.standings(req.json(), league)
         except APIErrorException:
             # Click handles incorrect League codes so this will only come up
@@ -93,8 +91,7 @@ class RequestHandler(object):
         if league:
             try:
                 league_id = self.league_ids[league]
-                req = self._get('competitions/{id}/matches?timeFrame={time_frame}{time}'.format(
-                     id=league_id, time_frame=time_frame, time=str(time)))
+                req = self._get(f'competitions/{league_id}/matches?timeFrame={time_frame}{str(time)}')
                 fixtures_results = req.json()
                 # no fixtures in the past week. display a help message and return
                 if len(fixtures_results["matches"]) == 0:
@@ -108,8 +105,7 @@ class RequestHandler(object):
         else:
             # When no league specified. Print all available in time frame.
             try:
-                req = self._get('matches?timeFrame={time_frame}{time}'.format(
-                     time_frame=time_frame, time=str(time)))
+                req = self._get(f'matches?timeFrame={time_frame}{str(time)}')
                 fixtures_results = req.json()
                 self.writer.league_scores(fixtures_results,
                                           time,
@@ -125,7 +121,7 @@ class RequestHandler(object):
         """
         team_id = self.team_names.get(team, None)
         try:
-            req = self._get('teams/{}/'.format(team_id))
+            req = self._get(f'teams/{team_id}/')
             team_players = req.json()['squad']
             if not team_players:
                 print(colors['red'] + colors['bold'] + "No players found for this team" + colors['end'])

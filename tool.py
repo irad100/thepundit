@@ -27,7 +27,7 @@ def get_input_key():
     print(colors['yellow'] + colors['bold'] + "No API key found!" + colors['end'])
     print(colors['yellow'] + colors['bold'] + f"Please visit {RequestHandler.BASE_URL} and get an API token." + colors['end'])
     while True:
-        confkey = input(colors['yellow'] + colors['bold'] + "Enter API key"+ colors['end'])
+        confkey = input(colors['yellow'] + colors['bold'] + "Enter API key" + colors['end'])
         if len(confkey) == 32:  # 32 chars
             try:
                 int(confkey, 16)  # hexadecimal
@@ -59,11 +59,7 @@ def load_config_key():
             api_token = key
         else:
             os.remove(config)  # remove 0-byte file
-            print('No API Token detected. '
-                        'Please visit {0} and get an API Token, '
-                        'which will be used by Soccer CLI '
-                        'to get access to the data.'
-                        .format(RequestHandler.BASE_URL), fg="red", bold=True)
+            print(colors['red'] + colors['bold'] + f'No API Token detected. Please visit {RequestHandler.BASE_URL} and get an API Token, which will be used by Soccer CLI to get access to the data.' + colors['end'])
             sys.exit(1)
     return api_token
 
@@ -119,7 +115,7 @@ def list_team_codes():
 # listcodes=False
 # String, API key to use.
 # apikey='<YOUR-API-KEY>'
-def run(league='PL', time=6, standings=True, team=None, live=False, use12hour=False, players=False, output_format='stdout', output_file=None, upcoming=False, lookup=False, listcodes=False, apikey=None):
+def run(league='PL', time=6, team=None, output_format='stdout', output_file=None, apikey=None, standings=False, live=False, players=False, use12hour=False, upcoming=False, lookup=False, listcodes=False):
     """
     A CLI for live and past football scores from various football leagues.
 
