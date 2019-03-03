@@ -54,7 +54,11 @@ def load_config_key():
                 cfile.write(key)
         else:
             with open(config, "r") as cfile:
+<<<<<<< HEAD
                 key = cfile.read().splitlines()[0]
+=======
+                key = cfile.read()
+>>>>>>> d191d01303b2719c8cf7c169c4ed905d2ae2fc93
         if key:
             api_token = key
         else:
@@ -119,7 +123,12 @@ def list_team_codes():
 # listcodes=False
 # String, API key to use.
 # apikey='901186e638fd4baa999bb2c32f4ef7d5'
+<<<<<<< HEAD
 def run(league='PL', time=6, standings=True, team=None, live=False, use12hour=False, players=False, output_format='stdout', output_file=None, upcoming=False, lookup=False, listcodes=False, apikey=None):
+=======
+def run(league, time, standings, team, live, use12hour, players,
+         output_format, output_file, upcoming, lookup, listcodes, apikey):
+>>>>>>> d191d01303b2719c8cf7c169c4ed905d2ae2fc93
     """
     A CLI for live and past football scores from various football leagues.
 
@@ -139,8 +148,11 @@ def run(league='PL', time=6, standings=True, team=None, live=False, use12hour=Fa
     - PD: Primera Division
     - BSA: Brazil Serie A
     """
+<<<<<<< HEAD
     if not apikey:
         apikey = load_config_key()
+=======
+>>>>>>> d191d01303b2719c8cf7c169c4ed905d2ae2fc93
     headers = {'X-Auth-Token': apikey}
 
     try:
